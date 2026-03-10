@@ -28,14 +28,13 @@ app.use('/api/admin/register', authLimiter);
 app.use('/api/contact', authLimiter);
 
 // CORS
-const allowedOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || 'http://localhost:3000')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
-
+// For now, allow all origins and send back the origin header dynamically.
+// This is convenient for multi-environment setups (local, Vercel, etc.).
+// If you want to lock this down later, replace `origin: true` with an
+// explicit whitelist using CORS_ORIGINS / FRONTEND_URL.
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: true,
     credentials: true,
   })
 );
