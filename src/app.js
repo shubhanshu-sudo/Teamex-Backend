@@ -28,9 +28,14 @@ app.use('/api/admin/register', authLimiter);
 app.use('/api/contact', authLimiter);
 
 // CORS
+const allowedOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || 'http://localhost:3000')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: allowedOrigins,
     credentials: true,
   })
 );
